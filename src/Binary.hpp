@@ -1,15 +1,16 @@
 #ifndef BINARY_HPP
 #define BINARY_HPP
-#include "Collection.hpp"
-#include "Element.hpp"
-
 #include <memory>
 #include <span>
 #include <vector>
 
-class Binary final : public Collection {
-public:
-  explicit Binary() : elements(std::make_unique<Element[]>(10)), capacity(10) {};
+#include "Element.hpp"
+#include "Heap.hpp"
+
+class Binary final : public Heap {
+ public:
+  explicit Binary()
+      : elements(std::make_unique<Element[]>(10)), capacity(10) {};
   explicit Binary(const int capacity)
       : elements(std::make_unique<Element[]>(capacity)), capacity(capacity) {};
   ~Binary() override = default;
@@ -21,8 +22,8 @@ public:
   [[nodiscard]] Element peek() const override;
   [[nodiscard]] int findElement(const Element &element) const;
   void increaseKey(const Element &element, int newPriority) override;
-
-private:
+  void meld(Heap& otherHeap) override;
+ private:
   std::unique_ptr<Element[]> elements;
   int capacity = 0;
   void heapifyDown(int index);
@@ -32,7 +33,6 @@ private:
   [[nodiscard]] static int parent(int index);
   void ensureCapacity();
   void grow();
-
 };
 
-#endif // BINARY_HPP
+#endif  // BINARY_HPP

@@ -1,17 +1,15 @@
-#include <cmath>
-
 #include "Binary.hpp"
+
+#include <cmath>
 std::vector<std::vector<Element>> Binary::getLevels() const {
   std::vector<std::vector<Element>> levels;
   const int size = getSize();
-  if (size == 0)
-    return levels;
+  if (size == 0) return levels;
 
   int levelNumber = 0;
   while (true) {
     const int start = static_cast<int>(std::pow(2, levelNumber)) - 1;
-    if (start >= size)
-      break;
+    if (start >= size) break;
 
     int end = static_cast<int>(std::pow(2, levelNumber + 1)) - 1;
     const int heapEnd = std::min(end, size);
@@ -20,7 +18,7 @@ std::vector<std::vector<Element>> Binary::getLevels() const {
       level.push_back(elements[i]);
     }
     for (int i = heapEnd; i < end; i++) {
-      level.emplace_back(-1,-1);
+      level.emplace_back(-1, -1);
     }
     levels.push_back(level);
     levelNumber++;
@@ -58,7 +56,22 @@ void Binary::increaseKey(const Element &element, const int newPriority) {
   elements[index].setPriority(newPriority);
   heapifyUp(index);
 }
-void Binary::heapifyDown(const int index) { // NOLINT(*-no-recursion)
+void Binary::meld(Heap &otherHeap) {
+  int sumSize = getSize() + otherHeap.getSize();
+  while (getCapacity() < sumSize) {
+    grow();
+    sumSize = getSize() + otherHeap.getSize();
+  }
+  const int otherSize = otherHeap.getSize();
+  for (int i = 0; i < otherSize; i++) {
+    elements[getSize()] = otherHeap.extractMax();
+    setSize(getSize() + 1);
+  }
+  for (int i = getSize() / 2 - 1; i >= 0; i--) {
+    heapifyDown(i);
+  }
+}
+void Binary::heapifyDown(const int index) {  // NOLINT(*-no-recursion)
   int largest = index;
   const int leftIndex = left(index);
   const int rightIndex = right(index);

@@ -1,5 +1,5 @@
-#include "Collection.hpp"
-void Collection::print() const {
+#include "Heap.hpp"
+void Heap::print() const {
   clear();
   const auto levels = getLevels();
   std::vector<size_t> spaces;
@@ -49,12 +49,12 @@ void Collection::print() const {
     mvprintw(2 * i, 0, "%s", levelString.c_str());
   }
 }
-void Collection::fillWithRandom(Collection &collection, const int size) {
+void Heap::fillWithRandom(Heap &collection, const int size) {
   for (int i = 0; i < size; i++) {
     collection.insert(Element(Utils::rng(0, size), Utils::rng(0, 5 * size)));
   }
 }
-void Collection::fillFromFile(Collection &collection,
+void Heap::fillFromFile(Heap &collection,
                               const std::string &filename, const int size) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
@@ -73,7 +73,7 @@ void Collection::fillFromFile(Collection &collection,
   }
   ifs.close();
 }
-Element Collection::getRandomElement() const {
+Element Heap::getRandomElement() const {
   const auto levels = getLevels();
   std::vector<Element> allElements;
   for (const auto &level : levels) {

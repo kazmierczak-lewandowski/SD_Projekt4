@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <fstream>
+
 #include "Binary.hpp"
 
 void Analysis::printSubTest(const int size, const int iteration) {
@@ -15,19 +16,41 @@ void Analysis::printSubTest(const int size, const int iteration) {
 }
 Element Analysis::prepareToTest(const CollectionType type, const int size,
                                 const int iteration,
-                                std::unique_ptr<Collection> &collection) {
+                                std::unique_ptr<Heap> &collection) {
   printSubTest(size, iteration);
-  //TODO: Collection switch
-  Collection::fillFromFile(
-      *collection, "../src/numbers.txt",
-      size);
+  // TODO: Collection switch
+  Heap::fillFromFile(*collection, "../src/numbers.txt", size);
   return {Utils::rng(0, 5'000'000), Utils::rng(0, 25'000'000)};
 }
 
 void Analysis::printTestHeader(const CollectionType type, std::string title) {
+  using enum CollectionType;
+  std::string collectionType;
+  switch (type) {
+    case BINARY: {
+      collectionType = "Binary";
+      break;
+    }
+    case BINOMIAL: {
+      collectionType = "Binomial";
+      break;
+    }
+    case PAIRING: {
+      collectionType = "Pairing";
+      break;
+    }
+    case TWO_THREE: {
+      collectionType = "2-3";
+      break;
+    }
+    case FIBONACCI: {
+      collectionType = "Fibonacci";
+      break;
+    }
+  }
   const auto string =
       std::format("Analyzing {} of {}", title,
-                  type == CollectionType::HEAP ? "Heap" : "BST");
+                  collectionType);
   mvprintw(0, 0, "%s", string.c_str());
 }
 
@@ -38,7 +61,7 @@ std::map<int, long> Analysis::analyzeInsert(const CollectionType type) {
   for (int i = 100'000; i <= 5'000'000; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
-      std::unique_ptr<Collection> collection;
+      std::unique_ptr<Heap> collection;
       const auto element = prepareToTest(type, i, j, collection);
       const auto start = std::chrono::high_resolution_clock::now();
       collection->insert(element);
@@ -58,7 +81,7 @@ std::map<int, long> Analysis::analyzeExtractMax(const CollectionType type) {
   for (int i = 100'000; i <= 5'000'000; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
-      std::unique_ptr<Collection> collection;
+      std::unique_ptr<Heap> collection;
       prepareToTest(type, i, j, collection);
       const auto start = std::chrono::high_resolution_clock::now();
       collection->extractMax();
@@ -74,11 +97,11 @@ std::map<int, long> Analysis::analyzeExtractMax(const CollectionType type) {
 std::map<int, long> Analysis::analyzeincreaseKey(const CollectionType type) {
   clear();
   std::map<int, long> result;
-  printTestHeader(type, "Modify key");
+  printTestHeader(type, "Increase key");
   for (int i = 100'000; i <= 5'000'000; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
-      std::unique_ptr<Collection> collection;
+      std::unique_ptr<Heap> collection;
       prepareToTest(type, i, j, collection);
       Element element = collection->getRandomElement();
       const auto start = std::chrono::high_resolution_clock::now();
@@ -94,8 +117,7 @@ std::map<int, long> Analysis::analyzeincreaseKey(const CollectionType type) {
 }
 void Analysis::writeToFile(const std::string &filename,
                            const std::map<int, long> &data) {
-  std::ofstream ofs("../results/" +
-                    filename);
+  std::ofstream ofs("../results/" + filename);
   ofs << "size;time" << std::endl;
   for (const auto &[key, value] : data) {
     ofs << key << ";" << value << std::endl;

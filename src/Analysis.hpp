@@ -1,6 +1,6 @@
 #ifndef ANALYSIS_HPP
 #define ANALYSIS_HPP
-#include "Collection.hpp"
+#include "Heap.hpp"
 
 #include <map>
 #include <memory>
@@ -9,12 +9,12 @@ class Analysis {
 
 private:
   enum class CollectionType {
-    HEAP = 0, BST = 1
+    BINARY = 0, BINOMIAL = 1, PAIRING = 2, TWO_THREE = 3, FIBONACCI = 4
   };
   static constexpr int ITERATIONS = 10;
   static void printSubTest(int size, int iteration);
   static Element prepareToTest(CollectionType type, int size, int iteration,
-                               std::unique_ptr<Collection> &collection);
+                               std::unique_ptr<Heap> &collection);
 
   static void printTestHeader(CollectionType type, std::string title);
 

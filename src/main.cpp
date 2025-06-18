@@ -7,7 +7,7 @@
 
 #include "Analysis.hpp"
 #include "Binary.hpp"
-#include "Collection.hpp"
+#include "Heap.hpp"
 
 void menuLoop(const std::vector<std::string> &choices, int &highlight) {
   int choice = 0;
@@ -23,13 +23,11 @@ void menuLoop(const std::vector<std::string> &choices, int &highlight) {
 
     switch (choice) {
       case KEY_UP: {
-        if (highlight != 0)
-          highlight--;
+        if (highlight != 0) highlight--;
         break;
       }
       case KEY_DOWN: {
-        if (highlight != choices.size() - 1)
-          highlight++;
+        if (highlight != choices.size() - 1) highlight++;
         break;
       }
       default:
@@ -53,9 +51,13 @@ int getInput(const std::string &message) {
 }
 
 int main() {
-  initscr();
-  keypad(stdscr, true);
-  curs_set(0);
-  endwin();
+  Heap *h1 = new Binary();
+  Heap *h2 = new Binary();
+  Heap::fillWithRandom(*h1, 10);
+  Heap::fillWithRandom(*h2, 10);
+  h1->meld(*h2);
+  for (int i = 0; i < h1->getSize(); i++) {
+    std::cout << h1->extractMax().toString() << std::endl;
+  }
   return 0;
 }

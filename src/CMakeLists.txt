@@ -1,9 +1,9 @@
 add_library(StructuresLib STATIC
         Binary.cpp
         Binary.hpp
-        Collection.hpp
+        Heap.hpp
         Element.hpp
-        Collection.cpp
+        Heap.cpp
         Utils.cpp
         Utils.hpp
 )
