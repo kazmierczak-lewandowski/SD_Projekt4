@@ -16,7 +16,9 @@ class Binary final : public Heap {
   ~Binary() override = default;
   [[nodiscard]] int getCapacity() const { return capacity; }
   [[nodiscard]] Element *getElements() const { return elements.get(); }
-  [[nodiscard]] std::vector<std::vector<Element>> getLevels() const override;
+  Element getRandomElement() const;
+  void print() const override;
+  [[nodiscard]] std::vector<std::vector<Element>> getLevels() const;
   void insert(Element element) override;
   Element extractMax() override;
   [[nodiscard]] Element peek() const override;

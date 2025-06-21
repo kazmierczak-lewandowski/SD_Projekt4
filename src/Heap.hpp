@@ -12,18 +12,17 @@
 class Heap {
 public:
   virtual ~Heap() = default;
-  [[nodiscard]] virtual std::vector<std::vector<Element>> getLevels() const = 0;
   [[nodiscard]] virtual Element peek() const = 0;
   virtual Element extractMax() = 0;
   virtual void increaseKey(const Element &element, int newPriority) = 0;
   virtual void insert(Element element) = 0;
   virtual void meld(Heap &otherHeap) = 0;
-  virtual void print() const;
+  virtual void print() const = 0;
   [[nodiscard]] int getSize() const { return size; }
   static void fillWithRandom(Heap &collection, int size);
   static void fillFromFile(Heap &collection, const std::string &filename,
                            int size);
-  [[nodiscard]] Element getRandomElement() const;
+  [[nodiscard]] virtual Element getRandomElement() const = 0;
   [[nodiscard]] bool isEmpty() const { return size == 0; }
 
 protected:
