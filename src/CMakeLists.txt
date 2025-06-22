@@ -10,6 +10,8 @@ add_library(StructuresLib STATIC
         Binomial.hpp
         Pairing.cpp
         Pairing.hpp
+        TwoThreeHeap.cpp
+        TwoThreeHeap.hpp
 )
 target_include_directories(StructuresLib
         PUBLIC
