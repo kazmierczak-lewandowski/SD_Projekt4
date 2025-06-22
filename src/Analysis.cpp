@@ -6,6 +6,9 @@
 #include <fstream>
 
 #include "Binary.hpp"
+#include "Fibonacci.hpp"
+#include "Pairing.hpp"
+#include "TwoThreeHeap.hpp"
 #include "Utils.hpp"
 
 void Analysis::printSubTest(const int size, const int iteration) {
@@ -30,15 +33,15 @@ Element Analysis::prepareToTest(const CollectionType type, const int size,
       break;
     }
     case PAIRING: {
-      // collection = std::make_unique<Pairing>();
+      collection = std::make_unique<Pairing>();
       break;
     }
     case TWO_THREE: {
-      // collection = std::make_unique<TwoThree>();
+      collection = std::make_unique<TwoThreeHeap>();
       break;
     }
     case FIBONACCI: {
-      // collection = std::make_unique<Fibonacci>();
+      collection = std::make_unique<Fibonacci>();
       break;
     }
   }
@@ -199,12 +202,31 @@ void Analysis::analyze() {
   // writeToFile("BinaryMeld.txt", data);
   // data = analyzePeek(BINARY);
   // writeToFile("BinaryPeek.txt", data);
-  data = analyzeInsert(BINOMIAL);
-  writeToFile("BinomialInsert.txt", data);
-  data = analyzeExtractMax(BINOMIAL);
-  writeToFile("BinomialExtractMax.txt", data);
-  data = analyzeMeld(BINOMIAL);
-  writeToFile("BinomialMeld.txt", data);
-  data = analyzePeek(BINOMIAL);
-  writeToFile("BinomialPeek.txt", data);
+
+  // data = analyzeInsert(BINOMIAL);
+  // writeToFile("BinomialInsert.txt", data);
+  // data = analyzeExtractMax(BINOMIAL);
+  // writeToFile("BinomialExtractMax.txt", data);
+  // data = analyzeMeld(BINOMIAL);
+  // writeToFile("BinomialMeld.txt", data);
+  // data = analyzePeek(BINOMIAL);
+  // writeToFile("BinomialPeek.txt", data);
+
+  data = analyzeInsert(PAIRING);
+  writeToFile("PairingInsert.txt", data);
+  data = analyzeExtractMax(PAIRING);
+  writeToFile("PairingExtractMax.txt", data);
+  data = analyzeMeld(PAIRING);
+  writeToFile("PairingMeld.txt", data);
+  data = analyzePeek(PAIRING);
+  writeToFile("PairingPeek.txt", data);
+
+  data = analyzeInsert(TWO_THREE);
+  writeToFile("TwoThreeInsert.txt", data);
+  data = analyzeExtractMax(TWO_THREE);
+  writeToFile("TwoThreeExtractMax.txt", data);
+  data = analyzeMeld(TWO_THREE);
+  writeToFile("TwoThreeMeld.txt", data);
+  data = analyzePeek(TWO_THREE);
+  writeToFile("TwoThreePeek.txt", data);
 }

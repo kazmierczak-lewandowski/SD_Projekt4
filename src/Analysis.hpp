@@ -16,7 +16,7 @@ class Analysis {
   };
   static constexpr int START_SIZE = 100'000;
   static constexpr int END_SIZE = 2'000'000;
-  static constexpr int ITERATIONS = 20;
+  static constexpr int ITERATIONS = 5;
   static void printSubTest(int size, int iteration);
   static Element prepareToTest(CollectionType type, int size, int iteration,
                                std::unique_ptr<Heap> &collection);
