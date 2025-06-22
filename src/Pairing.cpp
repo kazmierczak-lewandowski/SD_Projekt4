@@ -1,8 +1,6 @@
 #include "Pairing.hpp"
 
-Pairing::~Pairing() {
-  deleteTree(root);
-}
+Pairing::~Pairing() { deleteTree(root); }
 
 void Pairing::deleteTree(std::unique_ptr<Node>& node) {
   if (!node) return;
@@ -11,7 +9,8 @@ void Pairing::deleteTree(std::unique_ptr<Node>& node) {
   node.reset();
 }
 
-std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1, std::unique_ptr<Node>& t2) {
+std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1,
+                                                  std::unique_ptr<Node>& t2) {
   if (!t1) return std::move(t2);
   if (!t2) return std::move(t1);
   if (t1->value < t2->value) {
@@ -53,7 +52,7 @@ Element Pairing::extractMax() {
   return maxValue;
 }
 
-void Pairing::increaseKey(const Element& element, int newPriority) {
+void Pairing::increaseKey(const Element& element, const int newPriority) {
   Node* node = find(root.get(), element);
   if (!node) return;
 
@@ -92,9 +91,7 @@ void Pairing::meld(Heap& otherHeap) {
   setSize(getSize() + other.getSize());
 }
 
-void Pairing::print() const {
-
-}
+void Pairing::print() const {}
 
 [[nodiscard]] Element Pairing::getRandomElement() const {
   return root ? root->value : Element{-1, -1};

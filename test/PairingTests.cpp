@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "../src/Pairing.hpp"
 
-#include <iostream>
 #include <queue>
 #include <string>
+
+#include "../src/Pairing.hpp"
 
 void add3ElementsForTests(Pairing &heap) {
   heap.insert(Element{1, 10});
