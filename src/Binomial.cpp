@@ -46,16 +46,24 @@ void Binomial::consolidate() {
     }
   }
 }
-Element Binomial::peek() const {
-  const Node* current = head.get();
-  Element max;
+void Binomial::findMax() {
+  Node* current = head.get();
+  if (current == nullptr) {
+    maxNode = nullptr;
+    return;
+  }
+  Node* max = current;
+  current = current->sibling.get();
   while (current != nullptr) {
-    if (max < current->value) {
-      max = current->value;
+    if (max->value < current->value) {
+      max = current;
     }
     current = current->sibling.get();
   }
-  return max;
+  maxNode = max;
+}
+Element Binomial::peek() const {
+  return head != nullptr ? maxNode->value : Element{-1, -1};
 }
 Element Binomial::extractMax() {
   if (!head) return {-1, -1};
@@ -87,12 +95,13 @@ Element Binomial::extractMax() {
   childrenHeap.head = std::move(reversedChildren);
   setSize(getSize() - 1);
   meld(childrenHeap);
-
+  findMax();
   return maxValue;
 }
 void Binomial::increaseKey(const Element& element, const int newPriority) {
   auto* node = find(element);
   increaseKey(node, newPriority);
+  findMax();
 }
 void Binomial::insert(const Element element) {
   Binomial newHeap;
@@ -126,6 +135,7 @@ void Binomial::meld(Heap& otherHeap) {
   head = std::move(newHead);
   consolidate();
   setSize(getSize() + otherSize);
+  findMax();
 }
 void Binomial::print() const {}
 Element Binomial::getRandomElement() const { return {-1, -1}; }

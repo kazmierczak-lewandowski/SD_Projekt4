@@ -12,6 +12,8 @@ add_library(StructuresLib STATIC
         Pairing.hpp
         TwoThreeHeap.cpp
         TwoThreeHeap.hpp
+        Fibonacci.cpp
+        Fibonacci.hpp
 )
 target_include_directories(StructuresLib
         PUBLIC
