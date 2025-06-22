@@ -21,16 +21,16 @@ void Binomial::consolidate() {
 
     while (trees[degree] != nullptr) {
       current = mergeTrees(current, trees[degree]);
-      degree++;
       trees[degree] = nullptr;
+      degree++;
     }
     trees[degree] = std::move(current);
     current = std::move(next);
   }
-  for (auto& tree : trees) {
-    if (tree != nullptr) {
-      tree->sibling = std::move(head);
-      head = std::move(tree);
+  for (int i = trees.size() - 1; i >= 0; --i) {
+    if (trees[i] != nullptr) {
+      trees[i]->sibling = std::move(head);
+      head = std::move(trees[i]);
     }
   }
 }
