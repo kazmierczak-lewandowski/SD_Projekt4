@@ -20,7 +20,9 @@ private:
 
   static std::map<int, long> analyzeInsert(CollectionType type);
   static std::map<int, long> analyzeExtractMax(CollectionType type);
-  static std::map<int, long> analyzeincreaseKey(CollectionType type);
+  static std::map<int, long> analyzeIncreaseKey(CollectionType type);
+  static std::map<int, long> analyzeMeld(CollectionType type);
+  static std::map<int, long> analyzePeek(CollectionType type);
   static void writeToFile(const std::string &filename,
                           const std::map<int, long> &data);
 
