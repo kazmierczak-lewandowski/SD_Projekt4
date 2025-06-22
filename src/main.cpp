@@ -9,6 +9,7 @@
 #include "Analysis.hpp"
 #include "Binary.hpp"
 #include "Heap.hpp"
+#include "Utils.hpp"
 
 void menuLoop(const std::vector<std::string> &choices, int &highlight) {
   int choice = 0;
@@ -51,4 +52,8 @@ int getInput(const std::string &message) {
   }
 }
 
-int main() { return 0; }
+int main() {
+  initscr();
+  Analysis::analyze();
+  return 0;
+}

@@ -16,10 +16,11 @@ class Binomial final : public Heap {
     explicit Node(const Element val) : value(val) {}
   };
   std::unique_ptr<Node> head = nullptr;
-
+  Node* maxNode = nullptr;
   static std::unique_ptr<Node> mergeTrees(std::unique_ptr<Node>& t1,
                                           std::unique_ptr<Node>& t2);
   void consolidate();
+  void findMax();
   [[nodiscard]] Node* find(const Element& value) const;
   static Node* findInTree(Node* root, const Element& value);
   static void increaseKey(Node* node, int newPriority);

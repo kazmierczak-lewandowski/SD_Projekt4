@@ -42,8 +42,8 @@ Element Analysis::prepareToTest(const CollectionType type, const int size,
       break;
     }
   }
-  Heap::fillFromFile(*collection, "../src/numbers.txt", size);
-  return {Utils::rng(0, 5'000'000), Utils::rng(0, 25'000'000)};
+  Heap::fillFromFile(*collection, "numbers.txt", size);
+  return {Utils::rng(0, END_SIZE), Utils::rng(0, END_SIZE)};
 }
 
 void Analysis::printTestHeader(const CollectionType type, std::string title) {
@@ -79,7 +79,7 @@ std::map<int, long> Analysis::analyzeInsert(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Insertion");
-  for (int i = 100'000; i <= 5'000'000; i += 100'000) {
+  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -99,7 +99,7 @@ std::map<int, long> Analysis::analyzeExtractMax(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Extract max");
-  for (int i = 100'000; i <= 5'000'000; i += 100'000) {
+  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -119,14 +119,14 @@ std::map<int, long> Analysis::analyzeIncreaseKey(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Increase key");
-  for (int i = 100'000; i <= 5'000'000; i += 100'000) {
+  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
       prepareToTest(type, i, j, collection);
       Element element = collection->getRandomElement();
       const auto start = std::chrono::high_resolution_clock::now();
-      collection->increaseKey(element, Utils::gauss(0, 25'000'000));
+      collection->increaseKey(element, Utils::gauss(0, END_SIZE));
       const auto end = std::chrono::high_resolution_clock::now();
       average +=
           std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
@@ -140,7 +140,7 @@ std::map<int, long> Analysis::analyzeMeld(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Meld");
-  for (int i = 100'000; i <= 5'000'000; i += 100'000) {
+  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection1;
@@ -162,7 +162,7 @@ std::map<int, long> Analysis::analyzePeek(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Peek");
-  for (int i = 100'000; i <= 5'000'000; i += 100'000) {
+  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -181,7 +181,7 @@ std::map<int, long> Analysis::analyzePeek(const CollectionType type) {
 
 void Analysis::writeToFile(const std::string &filename,
                            const std::map<int, long> &data) {
-  std::ofstream ofs("../results/" + filename);
+  std::ofstream ofs("results/" + filename);
   ofs << "size;time" << std::endl;
   for (const auto &[key, value] : data) {
     ofs << key << ";" << value << std::endl;
@@ -191,21 +191,21 @@ void Analysis::writeToFile(const std::string &filename,
 void Analysis::analyze() {
   using enum CollectionType;
   std::map<int, long> data;
-  data = analyzeInsert(BINARY);
-  writeToFile("BinaryInsert", data);
-  data = analyzeExtractMax(BINARY);
-  writeToFile("BinaryExtractMax", data);
-  data = analyzeIncreaseKey(BINARY);
-  writeToFile("BinaryIncreaseKey", data);
-  data = analyzeMeld(BINARY);
-  writeToFile("BinaryMeld", data);
+  // data = analyzeInsert(BINARY);
+  // writeToFile("BinaryInsert.txt", data);
+  // data = analyzeExtractMax(BINARY);
+  // writeToFile("BinaryExtractMax.txt", data);
+  // data = analyzeIncreaseKey(BINARY);
+  // writeToFile("BinaryIncreaseKey.txt", data);
+  // data = analyzeMeld(BINARY);
+  // writeToFile("BinaryMeld.txt", data);
 
   data = analyzeInsert(BINOMIAL);
-  writeToFile("BinomialInsert", data);
+  writeToFile("BinomialInsert.txt", data);
   data = analyzeExtractMax(BINOMIAL);
-  writeToFile("BinomialExtractMax", data);
+  writeToFile("BinomialExtractMax.txt", data);
   data = analyzeIncreaseKey(BINOMIAL);
-  writeToFile("BinomialIncreaseKey", data);
+  writeToFile("BinomialIncreaseKey.txt", data);
   data = analyzeMeld(BINOMIAL);
-  writeToFile("BinomialMeld", data);
+  writeToFile("BinomialMeld.txt", data);
 }

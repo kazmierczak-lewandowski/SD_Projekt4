@@ -14,6 +14,8 @@ class Analysis {
     TWO_THREE = 3,
     FIBONACCI = 4
   };
+  static constexpr int START_SIZE = 100'000;
+  static constexpr int END_SIZE = 2'000'000;
   static constexpr int ITERATIONS = 10;
   static void printSubTest(int size, int iteration);
   static Element prepareToTest(CollectionType type, int size, int iteration,
