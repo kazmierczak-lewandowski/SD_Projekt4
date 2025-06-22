@@ -14,7 +14,6 @@ void add3ElementsForTests(Pairing &heap) {
 TEST(PairingTests, Insert) {
   Pairing heap;
   add3ElementsForTests(heap);
-  printHeap(heap);
   EXPECT_EQ(heap.peek().getPriority(), 20);
   EXPECT_EQ(heap.getSize(), 3);
 }

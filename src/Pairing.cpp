@@ -31,7 +31,7 @@ std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1, std
 Element Pairing::extractMax() {
   if (!root) return {-1, -1};
 
-  Element maxValue = root->value;
+  const Element maxValue = root->value;
   std::unique_ptr<Node> children = std::move(root->child);
 
   std::unique_ptr<Node> newRoot = nullptr;
@@ -76,7 +76,7 @@ void Pairing::increaseKey(const Element& element, int newPriority) {
   node->parent = nullptr;
   node->sibling = nullptr;
 
-  std::unique_ptr<Node> detachedNode = std::make_unique<Node>(node->value);
+  auto detachedNode = std::make_unique<Node>(node->value);
   root = meldTrees(root, detachedNode);
 }
 

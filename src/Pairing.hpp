@@ -34,7 +34,7 @@ public:
   void meld(Heap& otherHeap) override;
   void print() const override;
   [[nodiscard]] Element getRandomElement() const override;
-  Node* getRoot() const { return root.get(); }
+  [[nodiscard]] Node* getRoot() const { return root.get(); }
 };
 
 #endif  // PAIRING_HPP
