@@ -79,7 +79,7 @@ std::map<int, long> Analysis::analyzeInsert(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Insertion");
-  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
+  for (int i = START_SIZE; i <= END_SIZE; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -99,7 +99,7 @@ std::map<int, long> Analysis::analyzeExtractMax(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Extract max");
-  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
+  for (int i = START_SIZE; i <= END_SIZE; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -119,7 +119,7 @@ std::map<int, long> Analysis::analyzeIncreaseKey(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Increase key");
-  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
+  for (int i = START_SIZE; i <= END_SIZE; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -140,7 +140,7 @@ std::map<int, long> Analysis::analyzeMeld(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Meld");
-  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
+  for (int i = START_SIZE; i <= END_SIZE; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection1;
@@ -162,7 +162,7 @@ std::map<int, long> Analysis::analyzePeek(const CollectionType type) {
   clear();
   std::map<int, long> result;
   printTestHeader(type, "Peek");
-  for (int i = START_SIZE; i <= END_SIZE; i += START_SIZE) {
+  for (int i = START_SIZE; i <= END_SIZE; i += 100'000) {
     long average = 0;
     for (int j = 0; j < ITERATIONS; j++) {
       std::unique_ptr<Heap> collection;
@@ -195,17 +195,16 @@ void Analysis::analyze() {
   // writeToFile("BinaryInsert.txt", data);
   // data = analyzeExtractMax(BINARY);
   // writeToFile("BinaryExtractMax.txt", data);
-  // data = analyzeIncreaseKey(BINARY);
-  // writeToFile("BinaryIncreaseKey.txt", data);
   // data = analyzeMeld(BINARY);
   // writeToFile("BinaryMeld.txt", data);
-
+  // data = analyzePeek(BINARY);
+  // writeToFile("BinaryPeek.txt", data);
   data = analyzeInsert(BINOMIAL);
   writeToFile("BinomialInsert.txt", data);
   data = analyzeExtractMax(BINOMIAL);
   writeToFile("BinomialExtractMax.txt", data);
-  data = analyzeIncreaseKey(BINOMIAL);
-  writeToFile("BinomialIncreaseKey.txt", data);
   data = analyzeMeld(BINOMIAL);
   writeToFile("BinomialMeld.txt", data);
+  data = analyzePeek(BINOMIAL);
+  writeToFile("BinomialPeek.txt", data);
 }

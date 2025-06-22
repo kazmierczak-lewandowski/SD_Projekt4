@@ -8,6 +8,8 @@ add_library(StructuresLib STATIC
         Utils.hpp
         Binomial.cpp
         Binomial.hpp
+        Fibonacci.cpp
+        Fibonacci.hpp
 )
 target_include_directories(StructuresLib
         PUBLIC

@@ -4,6 +4,7 @@ add_executable(Tests
         BinaryTests.cpp
         ElementTests.cpp
         BinomialTests.cpp
+        FibonacciTests.cpp
 )
 include_directories(${GTEST_INCLUDE_DIRS})
 target_link_libraries(Tests
