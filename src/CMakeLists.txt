@@ -6,6 +6,8 @@ add_library(StructuresLib STATIC
         Heap.cpp
         Utils.cpp
         Utils.hpp
+        Binomial.cpp
+        Binomial.hpp
 )
 target_include_directories(StructuresLib
         PUBLIC
