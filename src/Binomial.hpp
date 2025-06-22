@@ -8,17 +8,12 @@ class Binomial final : public Heap {
  private:
   struct Node {
     Element value;
-    Node* parent;
-    std::unique_ptr<Node> child;
-    std::unique_ptr<Node> sibling;
-    int degree;
+    Node* parent = nullptr;
+    std::unique_ptr<Node> child = nullptr;
+    std::unique_ptr<Node> sibling = nullptr;
+    int degree = 0;
 
-    explicit Node(const Element val)
-        : value(val),
-          parent(nullptr),
-          child(nullptr),
-          sibling(nullptr),
-          degree(0) {}
+    explicit Node(const Element val) : value(val) {}
   };
   std::unique_ptr<Node> head;
 
