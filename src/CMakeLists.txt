@@ -8,6 +8,8 @@ add_library(StructuresLib STATIC
         Utils.hpp
         Binomial.cpp
         Binomial.hpp
+        Pairing.cpp
+        Pairing.hpp
 )
 target_include_directories(StructuresLib
         PUBLIC
