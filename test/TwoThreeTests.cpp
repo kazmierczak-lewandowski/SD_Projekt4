@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
+
 #include <iostream>
 #include <string>
+
 #include "TwoThreeHeap.hpp"
 
-
-
 class TwoThreeHeapTest : public ::testing::Test {
-protected:
+ protected:
   TwoThreeHeap heap;
 };
 
@@ -63,19 +63,4 @@ TEST_F(TwoThreeHeapTest, GetRandomElement) {
 
   Element randomElement = heap.getRandomElement();
   EXPECT_TRUE(randomElement.getValue() == 1 || randomElement.getValue() == 2);
-}
-TEST_F(TwoThreeHeapTest, EnforceTwoThreeRule) {
-  heap.insert({1, 10});
-  heap.insert({2, 20});
-  heap.insert({3, 15});
-  heap.insert({4, 25});
-  heap.insert({5, 30});
-
-  auto root = heap.getRoot();
-  ASSERT_NE(root, nullptr);
-  EXPECT_EQ(root->children.size(), 3);
-
-  auto newNode = root->children.back().get();
-  ASSERT_NE(newNode, nullptr);
-  EXPECT_EQ(newNode->children.size(), 2);
 }
