@@ -3,6 +3,8 @@
 #include "Binomial.hpp"
 
 class BinomialTest : public ::testing::Test {
+private:
+  Binomial heap;
  protected:
   void SetUp() override {
     elem1 = {1, 10};
@@ -11,7 +13,9 @@ class BinomialTest : public ::testing::Test {
     elem4 = {4, 5};
   }
 
-  Binomial heap;
+  Binomial* getHeap() {;
+    return &heap;
+  }
   Element elem1;
   Element elem2;
   Element elem3;
@@ -19,48 +23,48 @@ class BinomialTest : public ::testing::Test {
 };
 
 TEST_F(BinomialTest, EmptyHeap) {
-  EXPECT_TRUE(heap.peek().getPriority() == -1);
-  EXPECT_TRUE(heap.extractMax().getPriority() == -1);
+  EXPECT_TRUE(getHeap()->peek().getPriority() == -1);
+  EXPECT_TRUE(getHeap()->extractMax().getPriority() == -1);
 }
 
 TEST_F(BinomialTest, SingleInsert) {
-  heap.insert(elem1);
-  EXPECT_EQ(heap.peek().getPriority(), 10);
-  EXPECT_EQ(heap.peek().getValue(), 1);
+  getHeap()->insert(elem1);
+  EXPECT_EQ(getHeap()->peek().getPriority(), 10);
+  EXPECT_EQ(getHeap()->peek().getValue(), 1);
 }
 
 TEST_F(BinomialTest, InsertAndExtractMax) {
-  heap.insert(elem1);
-  heap.insert(elem2);
-  heap.insert(elem3);
+  getHeap()->insert(elem1);
+  getHeap()->insert(elem2);
+  getHeap()->insert(elem3);
 
-  EXPECT_EQ(heap.extractMax().getPriority(), 30);
-  EXPECT_EQ(heap.extractMax().getPriority(), 20);
-  EXPECT_EQ(heap.extractMax().getPriority(), 10);
-  EXPECT_TRUE(heap.extractMax().getPriority() == -1);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 30);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 20);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 10);
+  EXPECT_TRUE(getHeap()->extractMax().getPriority() == -1);
 }
 
 TEST_F(BinomialTest, Consolidate) {
-  heap.insert(elem1);
-  heap.insert(elem2);
-  heap.insert(elem3);
+  getHeap()->insert(elem1);
+  getHeap()->insert(elem2);
+  getHeap()->insert(elem3);
 
   Binomial heap2;
   heap2.insert(elem4);
-  heap.meld(heap2);
+  getHeap()->meld(heap2);
 
-  EXPECT_EQ(heap.peek().getPriority(), 30);
-  EXPECT_EQ(heap.extractMax().getPriority(), 30);
-  EXPECT_EQ(heap.extractMax().getPriority(), 20);
+  EXPECT_EQ(getHeap()->peek().getPriority(), 30);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 30);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 20);
 }
 
 TEST_F(BinomialTest, IncreaseKey) {
-  heap.insert(elem1);
-  heap.insert(elem2);
+  getHeap()->insert(elem1);
+  getHeap()->insert(elem2);
 
-  heap.increaseKey(elem1, 25);
-  EXPECT_EQ(heap.extractMax().getPriority(), 25);
-  EXPECT_EQ(heap.extractMax().getPriority(), 20);
+  getHeap()->increaseKey(elem1, 25);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 25);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 20);
 }
 
 TEST_F(BinomialTest, MeldingHeaps) {
@@ -83,19 +87,19 @@ TEST_F(BinomialTest, MeldingHeaps) {
 
 TEST_F(BinomialTest, LargeRandomOperations) {
   for (int i = 1; i <= 100; i++) {
-    heap.insert({i, i});
+    getHeap()->insert({i, i});
   }
 
   for (int i = 100; i >= 1; i--) {
-    EXPECT_EQ(heap.extractMax().getPriority(), i);
+    EXPECT_EQ(getHeap()->extractMax().getPriority(), i);
   }
 }
 
 TEST_F(BinomialTest, IncreaseKeyChangesMax) {
-  heap.insert({1, 10});
-  heap.insert({2, 20});
-  heap.increaseKey({1, 10}, 30);
+  getHeap()->insert({1, 10});
+  getHeap()->insert({2, 20});
+  getHeap()->increaseKey({1, 10}, 30);
 
-  EXPECT_EQ(heap.extractMax().getPriority(), 30);
-  EXPECT_EQ(heap.extractMax().getPriority(), 20);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 30);
+  EXPECT_EQ(getHeap()->extractMax().getPriority(), 20);
 }
