@@ -15,7 +15,7 @@ class Binomial final : public Heap {
 
     explicit Node(const Element val) : value(val) {}
   };
-  std::unique_ptr<Node> head;
+  std::unique_ptr<Node> head = nullptr;
 
   static std::unique_ptr<Node> mergeTrees(std::unique_ptr<Node>& t1,
                                           std::unique_ptr<Node>& t2);
@@ -25,7 +25,6 @@ class Binomial final : public Heap {
   static void increaseKey(Node* node, int newPriority);
 
  public:
-  explicit Binomial() : head(nullptr) {};
 
   [[nodiscard]] Element peek() const override;
   Element extractMax() override;
