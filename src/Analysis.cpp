@@ -208,5 +208,4 @@ void Analysis::analyze() {
   writeToFile("BinomialIncreaseKey", data);
   data = analyzeMeld(BINOMIAL);
   writeToFile("BinomialMeld", data);
-
 }

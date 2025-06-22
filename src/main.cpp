@@ -51,6 +51,4 @@ int getInput(const std::string &message) {
   }
 }
 
-int main() {
-  return 0;
-}
+int main() { return 0; }

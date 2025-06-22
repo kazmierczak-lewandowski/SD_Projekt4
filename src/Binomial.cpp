@@ -109,10 +109,8 @@ void Binomial::meld(Heap& otherHeap) {
   std::unique_ptr<Node> h2 = std::move(other.head);
 
   while (h1 != nullptr && h2 != nullptr) {
-
-
     if (h1->degree <= h2->degree) {
-    std::unique_ptr<Node> h1_next = std::move(h1->sibling);
+      std::unique_ptr<Node> h1_next = std::move(h1->sibling);
       *current = std::move(h1);
       h1 = std::move(h1_next);
     } else {

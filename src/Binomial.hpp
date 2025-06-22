@@ -13,13 +13,12 @@ class Binomial final : public Heap {
     std::unique_ptr<Node> sibling;
     int degree;
 
-    explicit Node(const Element val) {
-      value = val;
-      parent = nullptr;
-      child = nullptr;
-      sibling = nullptr;
-      degree = 0;
-    }
+    explicit Node(const Element val)
+        : value(val),
+          parent(nullptr),
+          child(nullptr),
+          sibling(nullptr),
+          degree(0) {}
   };
   std::unique_ptr<Node> head;
 
@@ -31,7 +30,7 @@ class Binomial final : public Heap {
   static void increaseKey(Node* node, int newPriority);
 
  public:
-  explicit Binomial() { head = nullptr; }
+  explicit Binomial() : head(nullptr) {};
 
   [[nodiscard]] Element peek() const override;
   Element extractMax() override;

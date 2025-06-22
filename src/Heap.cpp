@@ -8,8 +8,8 @@ void Heap::fillWithRandom(Heap &collection, const int size) {
     collection.insert(Element(Utils::rng(0, size), Utils::rng(0, 5 * size)));
   }
 }
-void Heap::fillFromFile(Heap &collection,
-                              const std::string &filename, const int size) {
+void Heap::fillFromFile(Heap &collection, const std::string &filename,
+                        const int size) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
     std::cerr << "Failed to open file " << filename << std::endl;

@@ -1,4 +1,5 @@
 #include "Utils.hpp"
+
 #include <algorithm>
 
 int Utils::rng(const int min, const int max) {

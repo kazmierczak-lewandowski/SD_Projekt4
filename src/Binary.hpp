@@ -17,7 +17,7 @@ class Binary final : public Heap {
   ~Binary() override = default;
   [[nodiscard]] int getCapacity() const { return capacity; }
   [[nodiscard]] Element *getElements() const { return elements.get(); }
-  Element getRandomElement() const;
+  [[nodiscard]] Element getRandomElement() const override;
   void print() const override;
   [[nodiscard]] std::vector<std::vector<Element>> getLevels() const;
   void insert(Element element) override;
@@ -26,6 +26,7 @@ class Binary final : public Heap {
   [[nodiscard]] int findElement(const Element &element) const;
   void increaseKey(const Element &element, int newPriority) override;
   void meld(Heap &otherHeap) override;
+
  private:
   std::unique_ptr<Element[]> elements;
   int capacity = 0;
