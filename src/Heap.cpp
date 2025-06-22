@@ -1,4 +1,8 @@
 #include "Heap.hpp"
+
+#include <iostream>
+
+#include "Utils.hpp"
 void Heap::fillWithRandom(Heap &collection, const int size) {
   for (int i = 0; i < size; i++) {
     collection.insert(Element(Utils::rng(0, size), Utils::rng(0, 5 * size)));

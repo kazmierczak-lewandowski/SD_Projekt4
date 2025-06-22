@@ -1,16 +1,12 @@
 #ifndef HEAP_HPP
 #define HEAP_HPP
-#include "Element.hpp"
-#include "Utils.hpp"
 
-#include <cmath>
 #include <fstream>
-#include <iostream>
-#include <ncurses.h>
-#include <vector>
+
+#include "Element.hpp"
 
 class Heap {
-public:
+ public:
   virtual ~Heap() = default;
   [[nodiscard]] virtual Element peek() const = 0;
   virtual Element extractMax() = 0;
@@ -25,11 +21,11 @@ public:
   [[nodiscard]] virtual Element getRandomElement() const = 0;
   [[nodiscard]] bool isEmpty() const { return size == 0; }
 
-protected:
+ protected:
   void setSize(const int newSize) { size = newSize; }
 
-private:
+ private:
   int size = 0;
 };
 
-#endif // HEAP_HPP
+#endif  // HEAP_HPP

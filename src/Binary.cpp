@@ -1,6 +1,11 @@
 #include "Binary.hpp"
 
+#include <curses.h>
+
 #include <cmath>
+
+#include "Binomial.hpp"
+#include "Utils.hpp"
 Element Binary::getRandomElement() const {
   const auto levels = getLevels();
   std::vector<Element> allElements;
@@ -26,12 +31,11 @@ void Binary::print() const {
       auto elementString = element.toString();
       int numOfSpaces = 1;
       if (!prevSpaces.empty()) {
-
         numOfSpaces = static_cast<int>(prevSpaces[j] - levelString.size());
-        levelString += std::string(static_cast<int>(prevSpaces[j] -
-                                                    elementString.find(';') -
-                                                    levelString.size()),
-                                   ' ');
+        levelString += std::string(
+            static_cast<int>(prevSpaces[j] - elementString.find(';') -
+                             levelString.size()),
+            ' ');
       }
       if (j % 2 == 1) {
         spaces.push_back(levelString.size() -
@@ -119,14 +123,15 @@ void Binary::increaseKey(const Element &element, const int newPriority) {
   heapifyUp(index);
 }
 void Binary::meld(Heap &otherHeap) {
-  int sumSize = getSize() + otherHeap.getSize();
+  auto &otherBinaryHeap = dynamic_cast<Binary &>(otherHeap);
+  int sumSize = getSize() + otherBinaryHeap.getSize();
   while (getCapacity() < sumSize) {
     grow();
-    sumSize = getSize() + otherHeap.getSize();
+    sumSize = getSize() + otherBinaryHeap.getSize();
   }
-  const int otherSize = otherHeap.getSize();
+  const int otherSize = otherBinaryHeap.getSize();
   for (int i = 0; i < otherSize; i++) {
-    elements[getSize()] = otherHeap.extractMax();
+    elements[getSize()] = otherBinaryHeap.extractMax();
     setSize(getSize() + 1);
   }
   for (int i = getSize() / 2 - 1; i >= 0; i--) {

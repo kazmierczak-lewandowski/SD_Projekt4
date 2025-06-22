@@ -4,6 +4,7 @@
 #include <span>
 #include <vector>
 
+#include "Binomial.hpp"
 #include "Element.hpp"
 #include "Heap.hpp"
 
@@ -24,7 +25,7 @@ class Binary final : public Heap {
   [[nodiscard]] Element peek() const override;
   [[nodiscard]] int findElement(const Element &element) const;
   void increaseKey(const Element &element, int newPriority) override;
-  void meld(Heap& otherHeap) override;
+  void meld(Heap &otherHeap) override;
  private:
   std::unique_ptr<Element[]> elements;
   int capacity = 0;

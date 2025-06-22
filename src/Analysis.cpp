@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include "Binary.hpp"
+#include "Utils.hpp"
 
 void Analysis::printSubTest(const int size, const int iteration) {
   move(1, 0);
