@@ -1,6 +1,7 @@
 #include <ncurses.h>
 
 #include <fstream>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -51,13 +52,5 @@ int getInput(const std::string &message) {
 }
 
 int main() {
-  Heap *h1 = new Binary();
-  Heap *h2 = new Binary();
-  Heap::fillWithRandom(*h1, 10);
-  Heap::fillWithRandom(*h2, 10);
-  h1->meld(*h2);
-  for (int i = 0; i < h1->getSize(); i++) {
-    std::cout << h1->extractMax().toString() << std::endl;
-  }
   return 0;
 }

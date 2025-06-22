@@ -4,8 +4,8 @@
 
 #include "Heap.hpp"
 
-class Binomial : public Heap {
-private:
+class Binomial final : public Heap {
+ private:
   struct Node {
     Element value;
     Node* parent;
@@ -24,20 +24,22 @@ private:
   std::unique_ptr<Node> head;
 
   static std::unique_ptr<Node> mergeTrees(std::unique_ptr<Node>& t1,
-                                              std::unique_ptr<Node>& t2);
+                                          std::unique_ptr<Node>& t2);
   void consolidate();
+  [[nodiscard]] Node* find(const Element& value) const;
+  static Node* findInTree(Node* root, const Element& value);
+  static void increaseKey(Node* node, int newPriority);
+
  public:
-  explicit Binomial() {
-    head = nullptr;
-  }
+  explicit Binomial() { head = nullptr; }
+
   [[nodiscard]] Element peek() const override;
   Element extractMax() override;
   void increaseKey(const Element& element, int newPriority) override;
   void insert(Element element) override;
   void meld(Heap& otherHeap) override;
-
+  void print() const override;
+  [[nodiscard]] Element getRandomElement() const override;
 };
 
-
-
-#endif //BINOMIAL_HPP
+#endif  // BINOMIAL_HPP
