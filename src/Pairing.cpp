@@ -1,6 +1,7 @@
 #include "Pairing.hpp"
 
 #include <stack>
+#include <vector>
 void Pairing::deleteTree(std::unique_ptr<Node>& node) {
   if (!node) return;
 
@@ -22,16 +23,21 @@ void Pairing::deleteTree(std::unique_ptr<Node>& node) {
   node.reset();
 }
 std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1,
-                                                   std::unique_ptr<Node>& t2) {
+                                                  std::unique_ptr<Node>& t2) {
   if (!t1) return std::move(t2);
   if (!t2) return std::move(t1);
+
   if (t1->value < t2->value) {
-    return meldTrees(t2, t1);
+    t2->sibling = std::move(t1->child);
+    t1->child = std::move(t2);
+    t1->child->parent = t1.get();
+    return std::move(t1);
+  } else {
+    t1->sibling = std::move(t2->child);
+    t2->child = std::move(t1);
+    t2->child->parent = t2.get();
+    return std::move(t2);
   }
-  t2->parent = t1.get();
-  t2->sibling = std::move(t1->child);
-  t1->child = std::move(t2);
-  return std::move(t1);
 }
 
 [[nodiscard]] Element Pairing::peek() const {
@@ -42,25 +48,24 @@ std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1,
 Element Pairing::extractMax() {
   if (!root) return {-1, -1};
 
-  const Element maxValue = root->value;
-  std::unique_ptr<Node> children = std::move(root->child);
+  Element maxValue = root->value;
 
-  std::unique_ptr<Node> newRoot = nullptr;
-  while (children) {
-    auto next = std::move(children->sibling);
-    children->sibling = std::move(newRoot);
-    newRoot = std::move(children);
-    children = std::move(next);
+  std::vector<std::unique_ptr<Node>> children;
+  while (root->child) {
+    children.push_back(std::move(root->child));
+    root->child = std::move(children.back()->sibling);
   }
 
-  root = std::move(newRoot);
-  while (root && root->sibling) {
-    auto t1 = std::move(root);
-    auto t2 = std::move(t1->sibling);
-    root = meldTrees(t1, t2);
+  while (children.size() > 1) {
+    auto t1 = std::move(children.back());
+    children.pop_back();
+    auto t2 = std::move(children.back());
+    children.pop_back();
+    children.push_back(meldTrees(t1, t2));
   }
-
+  root = children.empty() ? nullptr : std::move(children.back());
   setSize(getSize() - 1);
+
   return maxValue;
 }
 
