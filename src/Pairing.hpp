@@ -16,10 +16,8 @@ public:
   };
 private:
 
-
   std::unique_ptr<Node> root = nullptr;
 
- static void deleteTree(std::unique_ptr<Node>& node);
   static std::unique_ptr<Node> meldTrees(std::unique_ptr<Node>& t1,
                                          std::unique_ptr<Node>& t2);
   static Node* find(Node* node, const Element& value);

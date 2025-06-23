@@ -1,16 +1,9 @@
 #include "Pairing.hpp"
 
-Pairing::~Pairing() { deleteTree(root); }
-
-void Pairing::deleteTree(std::unique_ptr<Node>& node) {
-  if (!node) return;
-  deleteTree(node->child);
-  deleteTree(node->sibling);
-  node.reset();
-}
+Pairing::~Pairing() = default;
 
 std::unique_ptr<Pairing::Node> Pairing::meldTrees(std::unique_ptr<Node>& t1,
-                                                  std::unique_ptr<Node>& t2) {
+                                                   std::unique_ptr<Node>& t2) {
   if (!t1) return std::move(t2);
   if (!t2) return std::move(t1);
   if (t1->value < t2->value) {

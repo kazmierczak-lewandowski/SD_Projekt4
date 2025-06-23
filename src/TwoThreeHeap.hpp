@@ -18,7 +18,6 @@ class TwoThreeHeap final : public Heap {
 
   std::unique_ptr<Node> root;
 
-  static void deleteTree(std::unique_ptr<Node>& node);
   static std::unique_ptr<Node> meldTrees(std::unique_ptr<Node>& t1,
                                          std::unique_ptr<Node>& t2);
   static void enforceTwoThreeRule(const std::unique_ptr<Node>& node);
@@ -26,7 +25,7 @@ class TwoThreeHeap final : public Heap {
 
  public:
   TwoThreeHeap() = default;
-  ~TwoThreeHeap() override { deleteTree(root); }
+  ~TwoThreeHeap() override = default;
 
   [[nodiscard]] Element peek() const override;
   Element extractMax() override;

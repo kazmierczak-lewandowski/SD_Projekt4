@@ -195,38 +195,38 @@ void Analysis::analyze() {
   using enum CollectionType;
   std::map<int, long> data;
   // data = analyzeInsert(BINARY);
-  // writeToFile("BinaryInsert.txt", data);
+  // writeToFile("BinaryInsert.csv", data);
   // data = analyzeExtractMax(BINARY);
-  // writeToFile("BinaryExtractMax.txt", data);
+  // writeToFile("BinaryExtractMax.csv", data);
   // data = analyzeMeld(BINARY);
-  // writeToFile("BinaryMeld.txt", data);
+  // writeToFile("BinaryMeld.csv", data);
   // data = analyzePeek(BINARY);
-  // writeToFile("BinaryPeek.txt", data);
+  // writeToFile("BinaryPeek.csv", data);
 
   // data = analyzeInsert(BINOMIAL);
-  // writeToFile("BinomialInsert.txt", data);
+  // writeToFile("BinomialInsert.csv", data);
   // data = analyzeExtractMax(BINOMIAL);
-  // writeToFile("BinomialExtractMax.txt", data);
+  // writeToFile("BinomialExtractMax.csv", data);
   // data = analyzeMeld(BINOMIAL);
-  // writeToFile("BinomialMeld.txt", data);
+  // writeToFile("BinomialMeld.csv", data);
   // data = analyzePeek(BINOMIAL);
-  // writeToFile("BinomialPeek.txt", data);
+  // writeToFile("BinomialPeek.csv", data);
 
-  data = analyzeInsert(PAIRING);
-  writeToFile("PairingInsert.txt", data);
-  data = analyzeExtractMax(PAIRING);
-  writeToFile("PairingExtractMax.txt", data);
-  data = analyzeMeld(PAIRING);
-  writeToFile("PairingMeld.txt", data);
-  data = analyzePeek(PAIRING);
-  writeToFile("PairingPeek.txt", data);
+  // data = analyzeInsert(PAIRING);
+  // writeToFile("PairingInsert.csv", data);
+  // data = analyzeExtractMax(PAIRING);
+  // writeToFile("PairingExtractMax.csv", data);
+  // data = analyzeMeld(PAIRING);
+  // writeToFile("PairingMeld.csv", data);
+  // data = analyzePeek(PAIRING);
+  // writeToFile("PairingPeek.csv", data);
 
   data = analyzeInsert(TWO_THREE);
-  writeToFile("TwoThreeInsert.txt", data);
+  writeToFile("TwoThreeInsert.csv", data);
   data = analyzeExtractMax(TWO_THREE);
-  writeToFile("TwoThreeExtractMax.txt", data);
+  writeToFile("TwoThreeExtractMax.csv", data);
   data = analyzeMeld(TWO_THREE);
-  writeToFile("TwoThreeMeld.txt", data);
+  writeToFile("TwoThreeMeld.csv", data);
   data = analyzePeek(TWO_THREE);
-  writeToFile("TwoThreePeek.txt", data);
+  writeToFile("TwoThreePeek.csv", data);
 }
