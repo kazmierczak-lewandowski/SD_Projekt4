@@ -1,7 +1,26 @@
 #include "TwoThreeHeap.hpp"
 
 #include <algorithm>
+#include <stack>
+void TwoThreeHeap::deleteTree(std::unique_ptr<Node>& node) {
+  if (!node) return;
 
+  std::stack<std::unique_ptr<Node>> stack;
+  stack.push(std::move(node));
+
+  while (!stack.empty()) {
+    auto current = std::move(stack.top());
+    stack.pop();
+
+    for (auto& child : current->children) {
+      if (child) {
+        stack.push(std::move(child));
+      }
+    }
+  }
+
+  node.reset();
+}
 std::unique_ptr<TwoThreeHeap::Node> TwoThreeHeap::meldTrees(
     std::unique_ptr<Node>& t1, std::unique_ptr<Node>& t2) {
   if (!t1) return std::move(t2);
