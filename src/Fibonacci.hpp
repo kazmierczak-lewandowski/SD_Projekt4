@@ -3,31 +3,27 @@
 #include "Heap.hpp"
 
 class Fibonacci final : public Heap {
-private:
+ private:
   struct Node {
     Element key;
-    Node* parent;
-    Node* child;
-    Node* left;
-    Node* right;
-    int degree;
-    bool marked;
+    Node* parent = nullptr;
+    Node* child = nullptr;
+    Node* left = nullptr;
+    Node* right = nullptr;
+    int degree = 0;
+    char mark = 'W';
+    char c = 'N';
     explicit Node(const Element& k)
-        : key(k), parent(nullptr), child(nullptr), left(nullptr), right(nullptr), degree(0), marked(false) {}
+        : key(k) {}
   };
-  std::unique_ptr<Node> max_node;
-
-  Node* find(const Element key) const;
-  static Node* find(const Element key, Node* start);
+  Node* maxNode = nullptr;
   void consolidate();
-  static void link(Node* y, Node* x);
-  void increaseKey(Node* node, const Element new_key);
-  void cut(Node* node, Node* parent);
-  void cascadingCut(Node* node);
-  void addToRootList(Node* node);
+  void cut(Node* found, Node* temp) const;
+  void cascadeCut(Node* temp);
+  void increaseKey(Node* found, int val);
+  void fibonnaciLink(Node* ptr2, Node* ptr1);
 
-public:
-  Fibonacci() : max_node(nullptr) {};
+ public:
   [[nodiscard]] Element peek() const override;
   Element extractMax() override;
   void increaseKey(const Element& element, int newPriority) override;
